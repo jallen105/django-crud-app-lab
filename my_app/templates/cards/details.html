@@ -1,25 +1,18 @@
 {% extends "base.html" %}
 {% load static %}
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/cats/cat-detail.css' %}" />
+<link rel="stylesheet" href="{% static 'css/cards/card-details.css' %}" />
 {% endblock %} 
 {% block content %}
-<section class="cat-container">
-  <div class="cat-img">
-    <img src="{% static 'images/sk8r-boi-cat.svg' %}" alt="A skater boy cat" />
-  </div>
-  <div class="cat-details">
-    <h1>{{ cat.name }}</h1>
-    {% if cat.age > 0 %}
-      <h2>A {{ cat.age }} year old {{ cat.breed }}</h2>
-    {% else %}
-      <h2>A {{ cat.breed }} kitten.</h2>
-    {% endif %}
-    <p>{{ cat.description }}</p>
+<section class="card-container">
+  <div class="card-details">
+    <h1>{{ card.name }}</h1>
+    <p>{{ card.oracle_text }}</p>
+    <p>{{ card.power}} / {{ card.toughness }}</p>
     
-    <div class="cat-actions">
-      <a href="{% url 'cat-update' cat.id %}" class="btn warn">Edit</a>
-      <a href="{% url 'cat-delete' cat.id %}" class="btn danger">Delete</a>
+    <div class="card-actions">
+      <a href="{% url 'card-update' card.id %}" class="btn warn">Edit</a>
+      <a href="{% url 'card-delete' card.id %}" class="btn danger">Delete</a>
     </div>
   </div>
 </section>

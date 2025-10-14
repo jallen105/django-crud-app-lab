@@ -4,7 +4,6 @@ from django.urls import reverse
 # Create your models here.
 
 class Card(models.Model):
-    
     name = models.CharField(max_length=100)
     oracle_text = models.CharField(max_length=250)
     power = models.IntegerField()

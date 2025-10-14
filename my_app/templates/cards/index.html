@@ -12,7 +12,7 @@
 <section class="card-container">
   {% for card in cards %}
   <div class="card">
-    <a href="">
+    <a href="{% url "card-detail" card.id %}">
       <div class="card-content">
         <h2 class="card-title">{{ card.name }}</h2>
         <p><small>{{ card.oracle_text }}</small></p>

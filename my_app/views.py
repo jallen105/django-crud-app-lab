@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 def home(request):
     return render(request, 'home.html')
 
-def details(request, card_id):
+def card_detail(request, card_id):
     card = Card.objects.get(id=card_id)
     return render(request, 'cards/details.html', {'card': card})
 

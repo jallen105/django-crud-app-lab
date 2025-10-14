@@ -12,11 +12,13 @@
 <section class="card-container">
   {% for card in cards %}
   <div class="card">
-    <div class="card-content">
-      <h2 class="card-title">{{ card.name }}</h2>
-      <p><small>{{ card.oracle_text }}</small></p>
-      <p>{{card.power}}/{{card.toughness}}</p>
-    </div>
+    <a href="">
+      <div class="card-content">
+        <h2 class="card-title">{{ card.name }}</h2>
+        <p><small>{{ card.oracle_text }}</small></p>
+        <p>{{card.power}}/{{card.toughness}}</p>
+      </div>
+    </a>
   </div>
   {% endfor %}
 </section>

@@ -51,6 +51,19 @@ class CollectionList(ListView):
 class CollectionDetail(DetailView):
     model = Collection
 
+    def get_context_data(self, **kwargs):
+        context = super(CollectionDetail, self).get_context_data(**kwargs)
+        context['card_list'] = Card.objects.all()
+        return context
+
 class CollectionDelete(DeleteView):
     model = Collection
     success_url = '/collections/'
+
+def add_card(request, collection_id, card_id):
+    Collection.objects.get(id=collection_id).cards.add(card_id)
+    return redirect('collection-detail', pk=collection_id)
+
+def remove_card(request, card_id, collection_id):
+    Collection.objects.get(id=collection_id).cards.remove(card_id)
+    return redirect('collection-detail', pk=collection_id)

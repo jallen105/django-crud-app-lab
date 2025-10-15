@@ -8,5 +8,10 @@ urlpatterns = [
     path('cards/create/', views.CardCreate.as_view(), name='card-create'),
     path('cards/<int:pk>/update/', views.CardUpdate.as_view(), name='card-update'),
     path('cards/<int:pk>/delete/', views.CardDelete.as_view(), name='card-delete'),
-    path('cards/<int:card_id>/add-comment', views.add_comment, name='add-comment')
+    path('cards/<int:card_id>/add-comment', views.add_comment, name='add-comment'),
+    path('collections/', views.CollectionList.as_view(), name='collection-index'),
+    path('collections/<int:pk>/', views.CollectionDetail.as_view(), name='collection-detail'),
+    path('collections/create/', views.CollectionCreate.as_view(), name='collection-create'),
+    path('collections/<int:pk>/update/', views.CollectionUpdate.as_view(), name='collection-update'),
+    path('collections/<int:pk>/delete/', views.CollectionDelete.as_view(), name='collection-delete')
 ]

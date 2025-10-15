@@ -15,5 +15,22 @@
       <a href="{% url 'card-delete' card.id %}" class="btn danger">Delete</a>
     </div>
   </div>
+  <div class='comments'>
+    {% for comment in card.comment_set.all %}
+      <div class='card-details'>
+        <p>{{ comment.time_stamp }} <br> - {{ comment.comment }} <hr> </p>
+      </div>
+    {% endfor %}
+    <form 
+      action="{% url "add-comment" card.id %}"
+      method='post'
+      class="subsection-content"
+      autocomplete='off'
+    >
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <button type='submit' class='btn submit'>Add Comment</button>
+    </form>
+  </div>
 </section>
 {% endblock %}

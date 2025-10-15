@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Card
+from .models import Card, Collection
 from .forms import CommentForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 
 
 def home(request):
@@ -35,3 +36,21 @@ def add_comment(request, card_id):
         new_comment.card_id = card_id
         new_comment.save()
     return redirect('card-detail', card_id=card_id)
+
+class CollectionCreate(CreateView):
+    model = Collection
+    fields = ['name']
+
+class CollectionUpdate(UpdateView):
+    model = Collection
+    fields = ['name']
+
+class CollectionList(ListView):
+    model = Collection
+
+class CollectionDetail(DetailView):
+    model = Collection
+
+class CollectionDelete(DeleteView):
+    model = Collection
+    success_url = '/collections/'

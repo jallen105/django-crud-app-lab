@@ -1,0 +1,22 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/collections/collection-detail.css' %}" />
+{% endblock %} 
+{% block content %}
+
+<h2>{{ collection.name }}</h2>
+
+<div class="card-content">
+{% for card in collection.card.all %}
+    <div class="card-details">
+        <h1>{{ card.name }}</h1>
+        <p>{{ card.oracle_text }}</p>
+        <p>{{ card.power}} / {{ card.toughness }}</p>            
+    </div>
+{% endfor %}
+</div>
+<a href="{% url "collection-update" collection.id %}" class="btn warn">Edit</a>
+<a href="{% url "collection-delete" collection.id %}" class="btn danger">Delete</a>
+
+{% endblock %}

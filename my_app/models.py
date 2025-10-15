@@ -22,3 +22,14 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'created on {self.time_stamp}'
+    
+class Collection(models.Model):
+    name = models.CharField(max_length=100)
+    cards = models.ManyToManyField(Card)
+
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse("collection-detail", kwargs={"pk": self.id})
+    

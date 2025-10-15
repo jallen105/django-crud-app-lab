@@ -14,4 +14,11 @@ class Card(models.Model):
     
     def get_absolute_url(self):
         return reverse("card-detail", kwargs={"card_id": self.id})
-    
+
+class Comment(models.Model):
+    time_stamp = models.DateTimeField(auto_now_add=True)
+    comment = models.CharField(max_length=250)
+    card = models.ForeignKey(Card, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'created on {self.time_stamp}'

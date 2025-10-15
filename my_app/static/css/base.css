@@ -112,6 +112,10 @@ nav li {
     font-size: 16px;
 }
 
+.header-logo-container a:hover {
+  color: var(--link-hover-color);
+}
+
 .page-header {
   display: flex;
   align-items: center;

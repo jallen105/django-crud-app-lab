@@ -15,5 +15,6 @@ urlpatterns = [
     path('collections/<int:pk>/update/', views.CollectionUpdate.as_view(), name='collection-update'),
     path('collections/<int:pk>/delete/', views.CollectionDelete.as_view(), name='collection-delete'),
     path('collections/<int:collection_id>/add-card/<int:card_id>/', views.add_card, name='add-card'),
-    path('collections/<int:collection_id>/remove-card/<int:card_id>/', views.remove_card, name='remove-card')
+    path('collections/<int:collection_id>/remove-card/<int:card_id>/', views.remove_card, name='remove-card'),
+    path('accounts/signup/', views.signup, name='signup'),
 ]

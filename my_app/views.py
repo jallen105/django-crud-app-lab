@@ -85,7 +85,7 @@ class CollectionDetail(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(CollectionDetail, self).get_context_data(**kwargs)
         context['card_list'] = Card.objects.all()
-        context['card_collection'] = CardCollection.objects.all()
+        context['card_collection'] = CardCollection.objects.filter(collection_id=self.kwargs['pk'])
         return context
 
 class CollectionDelete(LoginRequiredMixin, DeleteView):
@@ -94,10 +94,22 @@ class CollectionDelete(LoginRequiredMixin, DeleteView):
 
 @login_required
 def add_card(request, collection_id, card_id):
-    Collection.objects.get(id=collection_id).cards.add(card_id)
+    card_collection_queryset = CardCollection.objects.filter(collection_id=collection_id, card_id=card_id)
+    if card_collection_queryset.exists():
+        add_card = CardCollection.objects.get(collection_id=collection_id, card_id=card_id)
+        add_card.quantity+=1
+        add_card.save()
+    else:
+        Collection.objects.get(id=collection_id).cards.add(card_id)
     return redirect('collection-detail', pk=collection_id)
 
 @login_required
 def remove_card(request, card_id, collection_id):
-    Collection.objects.get(id=collection_id).cards.remove(card_id)
+    card_collection_queryset = CardCollection.objects.get(collection_id=collection_id, card_id=card_id)
+    if card_collection_queryset.quantity > 1:
+        add_card = CardCollection.objects.get(collection_id=collection_id, card_id=card_id)
+        add_card.quantity-=1
+        add_card.save()
+    else:
+        Collection.objects.get(id=collection_id).cards.remove(card_id)
     return redirect('collection-detail', pk=collection_id)

@@ -10,6 +10,7 @@
 <a href="{% url "collection-delete" collection.id %}" class="btn danger">Delete</a>
 
 <div>
+    <h3>List of cards</h3>
     {% for card in card_list %}
     <p>{{ card.name }}</p>
     <form action="{% url "add-card" collection.id card.id %}" method='post' >
@@ -24,7 +25,8 @@
     <div class="card-details">
         <h1>{{ card.name }}</h1>
         <p>{{ card.oracle_text }}</p>
-        <p>{{ card.power}} / {{ card.toughness }}</p> 
+        <p>{{ card.power}} / {{ card.toughness }}</p>
+        <p>quantity: {% for item in card_collection %}{% if item.card_id == card.id %}{{ item.quantity }}{% endif %}{% endfor %}</p> 
         <form action="{% url "remove-card" collection.id card.id %}" method='delete' >
             {% csrf_token %}
             <button type='submit' class='btn danger'>X</button>

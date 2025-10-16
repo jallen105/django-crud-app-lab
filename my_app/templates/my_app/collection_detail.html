@@ -5,35 +5,48 @@
 {% endblock %} 
 {% block content %}
 
-<h2>{{ collection.name }}</h2>
-<a href="{% url "collection-update" collection.id %}" class="btn warn">Edit</a>
-<a href="{% url "collection-delete" collection.id %}" class="btn danger">Delete</a>
+<div class='collection-head'>
+    <h2>{{ collection.name }}</h2>
+    <div>
+        <a href="{% url "collection-update" collection.id %}" class="btn warn">Edit Name</a>
+        <a href="{% url "collection-delete" collection.id %}" class="btn danger">Delete Collection</a>
+    </div>
 
-<div>
-    <h3>List of cards</h3>
-    {% for card in card_list %}
-    <p>{{ card.name }}</p>
-    <form action="{% url "add-card" collection.id card.id %}" method='post' >
-        {% csrf_token %}
-        <button type='submit' class='btn submit'>Add</button>
-    </form>
-    {% endfor %}
 </div>
 
-<div class="card-content">
+<div class="list-container">
+    <h2 class="card-list-title">List of cards</h2>
+    <div class="card-list">
+    {% for card in card_list %}
+        <div class='add-card'>
+            <p>{{ card.name }}</p>
+            <form action="{% url "add-card" collection.id card.id %}" method='post' >
+                {% csrf_token %}
+                <button type='submit' class='btn submit'>Add</button>
+            </form>
+        </div>
+    {% endfor %}
+    </div>
+
+</div>
+
+
+
+<div class="collection-list">
 {% for card in collection.cards.all %}
-    <div class="card-details">
-        <h1>{{ card.name }}</h1>
-        <p>{{ card.oracle_text }}</p>
-        <p>{{ card.power}} / {{ card.toughness }}</p>
-        <p>quantity: {% for item in card_collection %}{% if item.card_id == card.id %}{{ item.quantity }}{% endif %}{% endfor %}</p> 
-        <form action="{% url "remove-card" collection.id card.id %}" method='delete' >
-            {% csrf_token %}
-            <button type='submit' class='btn danger'>X</button>
-        </form>           
+    <div class="card">
+        <div class='card-content'>
+            <h1>{{ card.name }}</h1>
+            <p>{{ card.oracle_text }}</p>
+            <p>{{ card.power}} / {{ card.toughness }}</p>
+            <p>quantity: {% for item in card_collection %}{% if item.card_id == card.id %}{{ item.quantity }}{% endif %}{% endfor %}</p> 
+            <form action="{% url "remove-card" collection.id card.id %}" method='delete' >
+                {% csrf_token %}
+                <button type='submit' class='btn danger'>X</button>
+            </form>    
+        </div>
+       
     </div>
 {% endfor %}
 </div>
-
-
 {% endblock %}

@@ -25,7 +25,7 @@ class Comment(models.Model):
     
 class Collection(models.Model):
     name = models.CharField(max_length=100)
-    cards = models.ManyToManyField(Card)
+    cards = models.ManyToManyField(Card, through='CardCollection')
 
     def __str__(self):
         return self.name
@@ -33,3 +33,7 @@ class Collection(models.Model):
     def get_absolute_url(self):
         return reverse("collection-detail", kwargs={"pk": self.id})
     
+class CardCollection(models.Model):
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
+    card = models.ForeignKey(Card, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
